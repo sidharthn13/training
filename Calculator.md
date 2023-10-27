@@ -1,7 +1,7 @@
 
-#calculator : This is an html file that displays a calculator app, with UI.
+#calculator : This is an html file that displays a calculator app, with UI.<br>
            ##Features: - can do multiplication, division, addition and subtraction operation on multiple numbers.<br>
-                     - displays the output of the entire expresion on a terminal.
+                     - displays the output of the entire expresion on a terminal.<br>
            ##How to use: - use number keys to feed numerical input values (0-9).<br>
                      - use operand keys to select the operation you want to perform ('*' - multiplication, '/' - division, '+' - addition, '-' - subtraction).<br>
                      - use the 'del' key to delete the latest input value.<br>
