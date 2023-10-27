@@ -10,5 +10,10 @@
 - Use the 'del' key to delete the latest input value.
 - Use the 'AC' key to clear the entire input expression.
 - Use the '=' key to get the result of the expression.
+## Demo
 
 ![calculator](https://github.com/sidharthn13/training/assets/148940680/5f808c78-58f2-4786-b398-7d85cfd79f86)
+
+[vid_calculator.webm](https://github.com/sidharthn13/training/assets/148940680/f3c34284-e414-47da-8e3b-122133da5148)
+
+
