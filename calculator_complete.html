@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>calculator_complete</title>
+  </head>
+
+  <body>
+    <style>
+      .digits {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        font-size: 30px;
+        margin-top: 10px;
+      }
+      .digits:hover {
+        background-color: grey;
+      }
+      .digits:active {
+        background-color: yellow;
+      }
+
+      .operand {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        font-size: 30px;
+        margin-top: 10px;
+        border-radius: 20px;
+        background-color: maroon;
+        color: white;
+      }
+      .operand:hover {
+        background-color: grey;
+      }
+      .operand:active {
+        background-color: blue;
+      }
+
+      .result {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        background-color: green;
+        font-size: 30px;
+        margin-top: 10px;
+        border-radius: 20px;
+      }
+      .result:hover {
+        background-color: grey;
+      }
+      .result:active {
+        background-color: turquoise;
+      }
+
+      .delete {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        background-color: orange;
+        font-size: 30px;
+        margin-top: 10px;
+        border-radius: 20px;
+      }
+      .delete:hover {
+        background-color: grey;
+      }
+      .delete:active {
+        background-color: red;
+      }
+
+      .terminal {
+        width: 500px;
+        height: 100px;
+        gap: 15px;
+        margin-top: 10px;
+        background-color: grey;
+        border-radius: 10px;
+        border: 5px solid;
+        font-size: 70px;
+      }
+
+      .erase {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        background-color: white;
+        font-size: 30px;
+        margin-top: 10px;
+        border-radius: 20px;
+        border: 2px solid;
+        color: brown;
+      }
+      .erase:hover {
+        background-color: grey;
+      }
+      .erase:active {
+        background-color: black;
+      }
+      .dot {
+        width: 100px;
+        column-gap: 50px;
+        height: 100px;
+        border: 20px;
+        gap: 15px;
+        font-size: 30px;
+        margin-top: 10px;
+      }
+      .dot:hover {
+        background-color: grey;
+      }
+      .dot:active {
+        background-color: yellow;
+      }
+    </style>
+
+    <form>
+      <div id="terminal" class="terminal"></div>
+
+      <div>
+        <button type="button" value="7" class="digits">7</button>
+        <button type="button" value="8" class="digits">8</button>
+        <button type="button" value="9" class="digits">9</button>
+        <button type="button" value="/" class="operand">/</button>
+        <button type="button" value="d" class="delete">del</button>
+      </div>
+
+      <div>
+        <button type="button" value="4" class="digits">4</button>
+        <button type="button" value="5" class="digits">5</button>
+        <button type="button" value="6" class="digits">6</button>
+        <button type="button" value="*" class="operand">*</button>
+      </div>
+
+      <div>
+        <button type="button" value="1" class="digits">1</button>
+        <button type="button" value="2" class="digits">2</button>
+        <button type="button" value="3" class="digits">3</button>
+        <button type="button" value="-" class="operand">-</button>
+      </div>
+
+      <div>
+        <button type="button" value="." class="dot">.</button>
+        <button type="button" value="0" class="digits">0</button>
+        <button type="button" value="=" class="result">=</button>
+        <button type="button" value="+" class="operand">+</button>
+        <button type="button" value="e" class="erase">AC</button>
+      </div>
+
+      <script>
+        let buttons = document.querySelectorAll("button");
+        let terminal_output = [];
+        let out_generated = false;
+
+        function enable_event_listeners() {
+          buttons.forEach((button) => {
+            document.addEventListener("click", handler);
+          });
+        }
+
+        function disable_event_listeners() {
+          buttons.forEach((button) => {
+            document.removeEventListener("click", handler);
+          });
+        }
+
+        function throw_error() {
+          terminal_output = [];
+          out_generated = false;
+          document.getElementById("terminal").innerHTML = "Error";
+          disable_event_listeners();
+          setTimeout(
+            () => (document.getElementById("terminal").innerHTML = ""),
+            1000
+          );
+          setTimeout(enable_event_listeners, 2000);
+        }
+
+        function display(str) {
+          if (str.length > 9) {
+            document.getElementById("terminal").innerHTML = str.slice(
+              str.length - 9,
+              str.length
+            );
+          } else {
+            document.getElementById("terminal").innerHTML = str;
+          }
+        }
+        function display_output(str){
+          if(str.length > 9){
+            document.getElementById("terminal").innerHTML = str.slice(
+              0,10
+            );
+          }
+          else{
+            document.getElementById("terminal").innerHTML = str;
+          }
+        }
+
+        function validate() {
+          if (
+            terminal_output[0] == "*" ||
+            terminal_output[0] == "/" ||
+            terminal_output[0] == "=" ||
+            terminal_output[terminal_output.length - 1] == "*" ||
+            terminal_output[terminal_output.length - 1] == "/" ||
+            terminal_output[terminal_output.length - 1] == "=" ||
+            terminal_output[terminal_output.length - 1] == "-" ||
+            terminal_output[terminal_output.length - 1] == "+"
+          ) {
+            return false;
+          } else {
+            for (let i = 0; i < terminal_output.length; i++) {
+              if (
+                terminal_output[i] == "*" ||
+                terminal_output[i] == "/" ||
+                terminal_output[i] == "+"
+              ) {
+                if (
+                  terminal_output[i + 1] == "*" ||
+                  terminal_output[i + 1] == "/" ||
+                  terminal_output[i + 1] == "+"
+                ) {
+                  return false;
+                }
+              }
+              if (terminal_output[i] == "-") {
+                if (
+                  terminal_output[i + 1] == "*" ||
+                  terminal_output[i + 1] == "/" ||
+                  terminal_output[i + 1] == "+"
+                ) {
+                  return false;
+                }
+              }
+              if (
+                terminal_output[i] == "." &&
+                i != terminal_output.length - 1
+              ) {
+                if (terminal_output[i + 1] == ".") {
+                  return false;
+                }
+              }
+            }
+            return true;
+          }
+        }
+
+        function solve() {
+          let out = terminal_output.join("");
+          if (validate() == true) {
+            out = eval(out);
+            out_generated = true;
+            if (out == Infinity || out == -Infinity) {
+              throw_error();
+            } else {
+              terminal_output = [`${out}`];
+              display_output(`${out}`);
+            }
+          } else {
+            throw_error();
+          }
+        }
+
+        function handler(event) {
+          let val = event.target.value;
+          switch (val) {
+            case "*":
+            case "/":
+            case "+":
+              out_generated = false;
+              terminal_output.push(val);
+              display(terminal_output.join(""));
+              break;
+            case "-":
+              out_generated = false;
+              if (
+                terminal_output != [] &&
+                terminal_output[terminal_output.length - 1] != "-"
+              ) {
+                terminal_output.push(val);
+                display(terminal_output.join(""));
+                break;
+              } else if (terminal_output == []) {
+                terminal_output.push(val);
+                display(terminal_output.join(""));
+                break;
+              } else if (
+                terminal_output != [] &&
+                terminal_output[terminal_output.length - 1] == "-"
+              ) {
+                break;
+              }
+
+            case "=":
+              solve();
+              break;
+            case "e":
+              terminal_output = [];
+              out_generated = false;
+              document.getElementById("terminal").innerHTML = "";
+              break;
+            case "d":
+              terminal_output.pop();
+              if (terminal_output == []) {
+                out_generated = false;
+              }
+              document.getElementById("terminal").innerHTML =
+                terminal_output.join("");
+              break;
+            case undefined:
+              display(terminal_output.join(""));
+              break;
+            default:
+              if (out_generated == false) {
+                terminal_output.push(val);
+                display(terminal_output.join(""));
+                break;
+              } else {
+                terminal_output.pop();
+                display(`${val}`);
+                terminal_output.push(val);
+                out_generated = false;
+                break;
+              }
+          }
+        }
+        enable_event_listeners();
+      </script>
+    </form>
+  </body>
+</html>
