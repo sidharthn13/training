@@ -1,4 +1,4 @@
-# Calclator using HTML, CSS and Javascript
+# Calculator using HTML, CSS and Javascript
  this is an HTML  file that displays a calculator app UI and performs basic arithmetic operations.
  ## Features
 - can do multiplication, division, addition and subtraction operation on multiple numbers.
