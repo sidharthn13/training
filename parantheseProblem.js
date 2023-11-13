@@ -4,25 +4,25 @@ function generate_combination(num) {
   generate(num, num, "");
   console.log(output);
 }
-function generate(open, closed, str) {
-  if (open == 0 && closed == 0) {
+function generate(numberOfOpenBrackets, numberOfClosedBrackets, str) {
+  if (numberOfOpenBrackets == 0 && numberOfClosedBrackets == 0) {
     //exit condition
     output.push(str);
   }
-  if (open == closed && open != 0) {
+  if (numberOfOpenBrackets == numberOfClosedBrackets && numberOfOpenBrackets != 0) {
     str += "(";
 
-    generate(open - 1, closed, str);
+    generate(numberOfOpenBrackets - 1, numberOfClosedBrackets, str);
   }
 
-  if (open < closed) {
+  if (numberOfOpenBrackets < numberOfClosedBrackets) {
     str += ")";
-    generate(open, closed - 1, str);
-    if (open != 0) {
+    generate(numberOfOpenBrackets, numberOfClosedBrackets - 1, str);
+    if (numberOfOpenBrackets != 0) {
       str = str.slice(0, str.length - 1);
       str += "(";
-      generate(open - 1, closed, str);
+      generate(numberOfOpenBrackets - 1, numberOfClosedBrackets, str);
     }
   }
 }
-generate_combination(2);
+generate_combination(5);
