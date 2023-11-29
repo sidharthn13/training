@@ -25,4 +25,4 @@ function generate(numberOfOpenBrackets, numberOfClosedBrackets, str) {
     }}
   
 }
-generate_combination(5);
+generate_combination(4);
